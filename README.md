@@ -1,8 +1,8 @@
 ### cnn_cifar10_image_classification ###
 This project applies Keras to build a Convolutional Neural Network, which achieves image classification on cifar_10 dataset with 88.5 accuracy on testset.
 
-![Image](screen_shotss/example_1.jpg)
-![Image](screen_shotss/example_2.jpg)
+![Image](screen_shots/example_1.jpg)
+![Image](screen_shots/example_2.jpg)
 ### Introduction ###
 The directory ```trained_models``` comtains weights for trained models.
 ```train.py```  and  ```test.py```
