@@ -21,4 +21,4 @@ You can then go to ```test.py``` and load your trained weights by edit ```weight
        python test.py
 ### Author ###
 Ivan Chen
- 
+![Image](screen_shots/vggnet.jpg)
