@@ -90,8 +90,8 @@ def get_test_data(test_num=10000):
 # 获取测试数据
 test_images, test_labels = get_test_data()
 # 模型加载权重
-weights = 'trained_models/weights.33-0.88.hdf5'
-model = load_model(weight_path=weights)
+weights_path = 'trained_models/weights.33-0.88.hdf5'
+model = load_model(weight_path=weights_path)
 # 预测
 output = model.predict(test_images)
 output = np.array(output)
