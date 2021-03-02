@@ -8,7 +8,7 @@ The ```trained_models``` directory comtains weights for trained models.
 If you execute the ```train.py``` file, the weights file will be sotred in ```models``` directory.
 ### Prerequisites ###
 1. Python3
-2. Python-Tensorflow
+2. Python-Tensorflow2.4
 3. Python-Keras
 4. Python-Numpy
 5. Python-Matplotlib
