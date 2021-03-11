@@ -6,18 +6,19 @@ import matplotlib.pyplot as plt
 
 
 def load_model(weight_path):
-	# 创建模型
+	# Create model
 	model = models.Sequential()
-	# 卷积   32通道的 3*3卷积核     param = 3*3卷积核 * 输入3通道 * 输出32通道  + 32偏置= 896
-	# 卷积核初始化
+	# Convolution   32 channels  (3*3)convolution kernels
+	# Number of parameters = 3*3kernels * 3 input channels * 32 output channels + 32bias= 896
+	# Initialization of kernel
 	model.add(layers.Conv2D(32, (3, 3), padding='same', input_shape=(32, 32, 3), kernel_initializer='LecunNormal'))
-	# 批标准化
+	# Batch normalization
 	model.add(layers.BatchNormalization())
-	# Relu 激活函数
+	# Relu activation
 	model.add(layers.Activation('relu'))
 
-	# 同上
-	# param = 32通道 * 3*3  *32通道 + 32 = 9248
+	# Similarly to above
+	# Number of parameters = 32 * 3*3  *32 + 32 = 9248
 	model.add(layers.Conv2D(32, (3, 3), padding='same', kernel_initializer='LecunNormal'))
 	model.add(layers.BatchNormalization())
 	model.add(layers.Activation('relu'))
@@ -40,7 +41,7 @@ def load_model(weight_path):
 	model.add(layers.Conv2D(64, (1, 1), padding='same', kernel_initializer='LecunNormal'))
 	model.add(layers.BatchNormalization())
 	model.add(layers.Activation('relu'))
-	# 池化
+	# Max pooling
 	model.add(layers.MaxPooling2D((2, 2)))
 	model.add(layers.Dropout(0.5))
 
@@ -56,22 +57,21 @@ def load_model(weight_path):
 	model.add(layers.Conv2D(128, (1, 1), padding='same', kernel_initializer='LecunNormal'))
 	model.add(layers.BatchNormalization())
 	model.add(layers.Activation('relu'))
-	# 池化
 	model.add(layers.MaxPooling2D((2, 2)))
 	model.add(layers.Dropout(0.5))
-	# 展开
+	# Flatten
 	model.add(layers.Flatten())
-	# dropout避免过拟合
+	# Dropout to avoid over fitting
 
 	model.add(layers.Dropout(0.5))
-	# softmax激活函数 使输出值归一化
+	# Soft-max activation to normalize out values
 	model.add(layers.Dense(10, activation='softmax'))
 
 	model.compile(optimizer=keras.optimizers.Adam(),
 				  loss=keras.losses.SparseCategoricalCrossentropy(from_logits=False),
 				  metrics=['accuracy'])
 
-	# 加载参数
+	# Load model weights
 	model.load_weights(weight_path)
 	print(model.summary())
 	return model
@@ -79,20 +79,19 @@ def load_model(weight_path):
 
 def get_test_data(test_num=10000):
 	(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
-	# 选取要测试的数据
+	# Select the data to be tested
 	test_images = test_images[0:test_num]
-	# 将像素的值标准化至0到1的区间内。
-	# 数据归一化
+	# Normalization of the input pixels
 	test_images = test_images / 255
 	test_labels = test_labels[0:test_num].reshape([1, -1])[0]
 	return test_images, test_labels
 
-# 获取测试数据
+# Get test data
 test_images, test_labels = get_test_data()
-# 模型加载权重
+# Load the model weights
 weights_path = 'trained_models/weights.94-0.89.hdf5'
 model = load_model(weight_path=weights_path)
-# 预测
+# Prediction
 output = model.predict(test_images)
 output = np.array(output)
 predict_labels = np.argmax(output, axis=-1)
