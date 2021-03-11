@@ -26,7 +26,7 @@ def make_new_image(image_origin):
 (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
 # Image Enhancement
-print("=================Image Enhancement Start====================")
+print("=================Image Augmentation Start====================")
 length = train_images.shape[0]
 
 new_images = []
@@ -38,7 +38,7 @@ for i in range(length):
 	new_images.append(new_img)
 	new_labels.append(label)
 	if i % 1000 == 0:
-		print('Image Enhancement： {}'.format(i))
+		print('Image Augmentation： {}'.format(i))
 
 # Concatenate new data and old
 new_images = np.array(new_images)
@@ -50,7 +50,7 @@ train_labels = np.concatenate((train_labels, new_labels))
 p = np.random.permutation(length * 2)
 train_images = train_images[p]
 train_labels = train_labels[p]
-print('=================图像增强结束=======================')
+print('=================Image Augmentation Finish=======================')
 
 # Min-Max normalization
 train_images, test_images = train_images / 255, test_images / 255
